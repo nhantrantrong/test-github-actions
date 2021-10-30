@@ -23,7 +23,7 @@ jobs:
 
       - name: Print changed files
         run: |
-          added_modified_files = ${{ steps.changes.outputs.added_modified }}.split(" ")
+          added_modified_files = "${{ steps.changes.outputs.added_modified }}".split(" ")
           for file in added_modified_files
             println(file)
         shell: python
