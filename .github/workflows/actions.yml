@@ -27,7 +27,9 @@ jobs:
           echo "${{ steps.changes.outputs.added_modified }}"
           mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.changes.outputs.added_modified }}')
           for added_modified_file in "${added_modified_files[@]}"; do
-            echo "Do something with this ${added_modified_file}."
+            if [[ added_modified_file == *".spec.js" ]]; then
+              echo "Do something with this ${added_modified_file}."
+            fi
           done
 
       # - name: List Files
