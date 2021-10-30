@@ -25,7 +25,7 @@ jobs:
         run: |
           println("Added + Modified:")
           println("${{ steps.changes.outputs.added_modified }}")
-          for added_modified in ${{ steps.changes.outputs.added_modified }}
+          for added_modified in ${{ steps.changes.outputs.added_modified.split(" ") }}
             if added_modified.find(".spec.js")
               print(added_modified)
         shell: python
