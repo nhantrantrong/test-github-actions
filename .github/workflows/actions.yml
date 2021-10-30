@@ -25,10 +25,10 @@ jobs:
         run: |
           println("Added + Modified:")
           println("${{ steps.changes.outputs.added_modified }}")
-          for added_modified in ${{ steps.changes.outputs.added_modified.split(" ") }}
-            if added_modified.find(".spec.js")
-              print(added_modified)
-        shell: python
+          mapfile -d ',' -t added_modified_files < <(printf '%s,' '${{ steps.changes.outputs.added_modified }}')
+          for added_modified_file in "${added_modified_files[@]}"; do
+            echo "Do something with this ${added_modified_file}."
+          done
 
       # - name: List Files
       #   run: |
