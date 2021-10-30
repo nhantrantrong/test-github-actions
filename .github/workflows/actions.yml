@@ -13,20 +13,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.5
-      
+
       - name: Get List of Modified and Added files
         uses: jitterbit/get-changed-files@v1
         id: changes
         with:
           format: space-delimited
           token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Printing
         run: |
-          echo "All:"
-          echo "${{ steps.changes.outputs.all }}"
           echo "Added + Modified:"
-          echo "${{ steps.abc.outputs.added_modified }}"
+          echo "${{ steps.changes.outputs.added_modified }}"
+
+      - name: echo changed files
+        run: |
+          for added_modified in ${{ steps.changes.outputs.added_modified }}
+            if added_modified.find(".spec.js")
+              print(added_modified)
+        shell: python
 
       # - name: List Files
       #   run: |
@@ -45,4 +48,3 @@ jobs:
 
       # - name: Log Greeting Time
       #   run: echo "${{ steps.greet.outputs.time }}"
-
