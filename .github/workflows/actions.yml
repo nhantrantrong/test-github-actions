@@ -23,8 +23,8 @@ jobs:
 
       - name: echo changed files
         run: |
-          echo "Added + Modified:"
-          echo "${{ steps.changes.outputs.added_modified }}"
+          println("Added + Modified:")
+          println("${{ steps.changes.outputs.added_modified }}")
           for added_modified in ${{ steps.changes.outputs.added_modified }}
             if added_modified.find(".spec.js")
               print(added_modified)
