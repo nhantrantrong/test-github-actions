@@ -1,9 +1,9 @@
 name: Action Workflow
 
 on: 
-  # schedule:
-    # - cron: "20 14 * * *"
-  [push, pull_request]
+  schedule:
+    - cron: "25 15 * * *"
+  # [push, pull_request]
 
 jobs:
   run-github-actions:
