@@ -22,6 +22,7 @@ jobs:
 
   run-windows-commands:
     runs-on: windows-latest
+    needs: ["run-shell-command"]
     steps:
       - name: Director Powershell
         run: Get-Location
@@ -29,4 +30,3 @@ jobs:
       - name: Directory Bash
         run: pwd
         shell: bash
-
