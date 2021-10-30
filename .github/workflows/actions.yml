@@ -1,28 +1,51 @@
 name: Action Workflow
 
-on: [push, pull_request]
+on: 
+  schedule:
+    - cron: "30 14 * * *"
+# [push, pull_request]
 
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      all: ${{ steps.changes.outputs.all}}
+      spec: ${{ steps.changes.outputs.spec }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.5
-      
-      - name: List Files
-        run: |
-          pwd
-          ls -al
-          echo $GITHUB_SHA
-          echo $GITHUB_REPOSITORY
-          echo $GITHUB_WORKSPACE
-          echo "${{ github.token }}"
 
-      - name: Simple JS Action
-        id: greet
-        uses: actions/hello-world-javascript-action@v1.1
+      - name: Get List of Modified and Added files
+        uses: jitterbit/get-changed-files@v1
+        id: changes
         with:
-          who-to-greet: John
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Log Greeting Time
-        run: echo "${{ steps.greet.outputs.time }}"
+      - name: Print changed files
+        run: |
+          for f in ${{ steps.changes.outputs.added_modified}}; do 
+            if [[ $f == *".spec.js"* ]]; then
+              echo "Do something with this ${f}.";
+            fi
+          done
+
+      # - name: List Files
+      #   run: |
+      #     pwd
+      #     ls -al
+      #     echo $GITHUB_SHA
+      #     echo $GITHUB_REPOSITORY
+      #     echo $GITHUB_WORKSPACE
+      #     echo "${{ github.token }}"
+
+      # - name: Simple JS Action
+      #   id: greet
+      #   uses: actions/hello-world-javascript-action@v1.1
+      #   with:
+      #     who-to-greet: John
+
+      # - name: Log Greeting Time
+      #   run: echo "${{ steps.greet.outputs.time }}"
