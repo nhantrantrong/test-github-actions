@@ -2,8 +2,8 @@ name: Action Workflow
 
 on: 
   schedule:
-    - cron: "25 * * * *"
-  # [push, pull_request]
+    # - cron: "25 * * * *"
+  [push, pull_request]
 
 jobs:
   run-github-actions:
@@ -17,20 +17,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.5
 
-      - name: Get List of Modified and Added files
-        uses: jitterbit/get-changed-files@v1
-        id: changes
-        with:
-          format: space-delimited
-          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Get List of Modified and Added files
+      #   uses: jitterbit/get-changed-files@v1
+      #   id: changes
+      #   with:
+      #     format: space-delimited
+      #     token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Print changed files
-        run: |
-          for f in ${{ steps.changes.outputs.added_modified}}; do 
-            if [[ $f == *".spec.js"* ]]; then
-              echo "Do something with this ${f}.";
-            fi
-          done
+      # - name: Print changed files
+      #   run: |
+      #     for f in ${{ steps.changes.outputs.added_modified}}; do 
+      #       if [[ $f == *".spec.js"* ]]; then
+      #         echo "Do something with this ${f}.";
+      #       fi
+      #     done
 
       # - name: List Files
       #   run: |
