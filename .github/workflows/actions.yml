@@ -23,10 +23,9 @@ jobs:
 
       - name: Print changed files
         run: |
-          added_modified_files = "${{ steps.changes.outputs.added_modified }}".split(" ")
-          for file in added_modified_files
-            println(file)
-        shell: python
+          for f in ${{ steps.changes.outputs.added_modified}};
+            do echo "Do something with this ${f}.";
+          done
 
       # - name: List Files
       #   run: |
