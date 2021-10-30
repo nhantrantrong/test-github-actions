@@ -24,7 +24,9 @@ jobs:
       - name: Print changed files
         run: |
           for f in ${{ steps.changes.outputs.added_modified}};
-            do echo "Do something with this ${f}.";
+            if [[ $f == *".spec.js"* ]]; then
+              do echo "Do something with this ${f}.";
+            fi
           done
 
       # - name: List Files
