@@ -19,14 +19,14 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v1.2.0
+        with: 
+          separator: ","
 
       - name: List all modified Files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
-            if [[ $file == *".spec.js"* ]]; then
-              node $file;
-            fi
-          done
+        id: added-modified-spec-files
+        with:
+          type_changed_files: ".spec.js"
+        run: echo ${{ steps.changed-files.outputs.all_modified_files }}
 
       # - name: Get List of Modified and Added files
       #   uses: jitterbit/get-changed-files@v1
