@@ -11,10 +11,6 @@ on:
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
-    # Map a step output to a job output
-    outputs:
-      all: ${{ steps.changes.outputs.all}}
-      spec: ${{ steps.changes.outputs.spec }}
 
     steps:
       - name: Checkout
@@ -24,10 +20,12 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v1.2.0
 
-      - name: List all modified files
+      - name: List all modified Files
         run: |
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
-            echo "$file was modified"
+            if [[ $f == *".spec.js"* ]]; then
+              node $f;
+            fi
           done
 
       # - name: Get List of Modified and Added files
