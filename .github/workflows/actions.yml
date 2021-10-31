@@ -25,7 +25,7 @@ jobs:
             \.spec.js$
 
       - name: List all modified Files
-        run: echo ${{ steps.changed-files.outputs.all_modified_files }}
+        run: echo "-- --spec=${{ steps.changed-files.outputs.all_modified_files }}"
 
       # - name: Get List of Modified and Added files
       #   uses: jitterbit/get-changed-files@v1
