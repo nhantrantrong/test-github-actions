@@ -21,7 +21,8 @@ jobs:
         uses: tj-actions/changed-files@v1.2.0
         with:
           separator: ","
-          type_changed_files: ".spec.js"
+          files: |
+            \.spec.js$
 
       - name: List all modified Files
         run: echo ${{ steps.changed-files.outputs.all_modified_files }}
