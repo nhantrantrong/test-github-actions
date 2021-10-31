@@ -19,13 +19,11 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v1.2.0
-        with: 
+        with:
           separator: ","
+          type_changed_files: ".spec.js"
 
       - name: List all modified Files
-        id: added-modified-spec-files
-        with:
-          type_changed_files: ".spec.js"
         run: echo ${{ steps.changed-files.outputs.all_modified_files }}
 
       # - name: Get List of Modified and Added files
@@ -37,7 +35,7 @@ jobs:
 
       # - name: Print changed files
       #   run: |
-      #     for f in ${{ steps.changes.outputs.added_modified}}; do 
+      #     for f in ${{ steps.changes.outputs.added_modified}}; do
       #       if [[ $f == *".spec.js"* ]]; then
       #         echo "Do something with this ${f}.";
       #       fi
@@ -60,4 +58,3 @@ jobs:
 
       # - name: Log Greeting Time
       #   run: echo "${{ steps.greet.outputs.time }}"
-
