@@ -23,8 +23,8 @@ jobs:
       - name: List all modified Files
         run: |
           for file in ${{ steps.changed-files.outputs.all_modified_files }}; do
-            if [[ $f == *".spec.js"* ]]; then
-              echo "$f";
+            if [[ $file == *".spec.js"* ]]; then
+              node $file;
             fi
           done
 
